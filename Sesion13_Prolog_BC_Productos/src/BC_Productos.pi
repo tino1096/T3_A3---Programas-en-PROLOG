@@ -1,0 +1,77 @@
+
+% articulo(clave, descripcion, precio)
+producto(pr1, computadora, 15).
+producto(pr2, raton_alambrico, 10).
+producto(pr3, proyector, 10).
+producto(pr4, adaptador_vga, 10).
+producto(pr5, raton_inalambrico, 5).
+producto(pr6, memoria_usb, 5).
+producto(pr7, disco_externo, 5).
+producto(pr8, escritorio, 100). 
+
+% inventario(clave, existencias)
+inventario(pr1, 32).
+inventario(pr2, 4).
+inventario(pr3, 5).
+inventario(pr4, 64).
+inventario(pr5, 12).
+inventario(pr6, 10).
+inventario(pr7, 89).
+
+% cliente(nombre, ciudad, calificacion-credito)
+cliente(ana, fresnillo, 5).
+cliente(maria, jerez, 4).
+cliente(luis, jerez, 2).
+cliente(juan, zacatecas, 3).
+cliente(gerardo, gaudalupe, 4).
+cliente(david, zacatecas, 5).
+cliente(perla, gaudalupe, 4).
+cliente(omar, zacatecas, 3).
+cliente(lucia, jerez, 4).
+cliente(diana, fresnillo, 1).
+
+% _ (guion bajo) COMODIN que permite UNIFICAR cualquier valor, SIN MOSTRARLO
+
+%EJEMPLO: crear regla que muestre a los clientes de Jerez
+clientes_jerez(Nombre) :- cliente(Nombre, jerez, _).	%PROBAR CONSULTA: clientes_jerez(Nombre).
+
+%EJEMPLO 2: mostrar los clientes con calificacion de 5
+clientes_5(Nombre) :- cliente(Nombre, _, 5).
+
+%EJEMPLO 3: mostrar un listado con el nombre del producto y su existencia
+producto_cantidad(Prod, Cant):- producto(NumProd, Prod, _) , inventario(NumProd, Cant).
+
+
+% 1. Mostrar clientes en una ciudad dada.
+	clientes_ciudad(Nombre) :- cliente(Nombre, zacatecas, _).
+
+% 2. Encontrar clientes con una calificación crediticia determinada.
+	clientes_calificacion(N, L, C) :- cliente(N,L,3).
+
+% 3. Encontrar los clientes en una ciudad determinada con una calificación de crédito determinada.
+	clientes_ciudad_determinada(N, L, C) :- cliente(N, jerez, 4).
+
+% 4. Encuentre la cantidad de limite en existencias para un artículo dado.
+	existencia(C,D,E) :- articulos(_, D, E).
+
+% 5. Encuentre el número de artículo para un nombre de artículo determinado.
+	numero_articulo(A, N) :- articulos(A, proyector, _).
+
+% 6. Encuentre el nivel de inventario para un número de artículo dado.
+	nivel_inventario(C, N, E) :- articulos(a5, N, _) , inventario(a5, E).
+
+% 7. Crear una regla que ayude a mostrar la cantidad de artículos que hay para cada artículo. 
+	total_articulos(C, N, E) :- articulos(C, N, _) , inventario(C, E).
+
+
+
+
+
+
+
+
+
+
+
+
+
